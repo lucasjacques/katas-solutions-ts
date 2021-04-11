@@ -17,29 +17,25 @@ function fromDecimalToRoman(decimal: number) {
     return b.decimal - a.decimal
   })
 
-  let result = ''
-  for (
-    let remainder = decimal,
-      currentKey = 0,
-      currentRomanDecimal = romanNumeralsMapSorted[currentKey];
-    remainder > 0;
-
-  ) {
+  let result: string = '',
+    currentKey = 0,
+    current = { element: romanNumeralsMapSorted[currentKey] }
+  for (let remainder = decimal; remainder > 0; ) {
     if (remainder === 0) {
       break
     }
-    if (remainder < currentRomanDecimal.decimal) {
-      currentRomanDecimal = romanNumeralsMapSorted[++currentKey]
+    if (remainder < current.element.decimal) {
+      current.element = romanNumeralsMapSorted[++currentKey]
       continue
     }
-    result += currentRomanDecimal.roman
-    remainder -= currentRomanDecimal.decimal
+    result += current.element.roman
+    remainder -= current.element.decimal
   }
   return result
 }
-console.log('result: ', solution(3))
+console.log('result: ', solution(5))
 
-/*
+/* Some infos:
  * In Roman numerals 1990 is rendered:
  ** 1000=M,
  ** 900=CM,
@@ -48,12 +44,12 @@ console.log('result: ', solution(3))
  ** 1666 uses each Roman symbol in descending order: MDCLXVI.
  */
 
-/* Plan:
+/* Dev plan:
  *# map roman numerals - check
  *# transform from Decimal to Roman
  *## transform correctly: I to III - check
- *## add 'IV' pattern
- *## refact 'IV' pattern to be used by 'X' as well
- *## refact 'IV' pattern to be used by 'C' but with 'L' as the subtractor instead of 'I' (make it an argument)
- *## refact 'IV' pattern to be used by 'X' but with 'D' as the subtractor instead of 'L' (pass D as the argument)
+ *## transform correctly: 'IV' case
+ *## refactor 'IV' adaptation to be used by 'X' as well
+ *## refactor 'IV' adaptation to be used by 'C' but with 'L' as the subtractor instead of 'I' (make it an argument)
+ *## refactor 'IV' adaptation to be used by 'X' but with 'D' as the subtractor instead of 'L' (pass D as the argument)
  */
