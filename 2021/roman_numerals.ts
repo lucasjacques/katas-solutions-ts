@@ -1,16 +1,43 @@
 export function solution(number: number): string {
-  // convert the number to a roman numeral
-  const romanNumeralsMap = {
-    1: 'I',
-    5: 'V',
-    10: 'X',
-    50: 'L',
-    100: 'C',
-    500: 'D',
-    1000: 'M',
-  }
-  return ''
+  return fromDecimalToRoman(number)
 }
+
+function fromDecimalToRoman(decimal: number) {
+  const romanNumeralsMap = [
+    { roman: 'I', decimal: 1 },
+    { roman: 'V', decimal: 5 },
+    { roman: 'X', decimal: 10 },
+    { roman: 'L', decimal: 50 },
+    { roman: 'D', decimal: 500 },
+    { roman: 'C', decimal: 100 },
+    { roman: 'M', decimal: 1000 },
+  ]
+
+  const romanNumeralsMapSorted = romanNumeralsMap.sort((a, b) => {
+    return b.decimal - a.decimal
+  })
+
+  let result = ''
+  for (
+    let remainder = decimal,
+      currentKey = 0,
+      currentRomanDecimal = romanNumeralsMapSorted[currentKey];
+    remainder > 0;
+
+  ) {
+    if (remainder === 0) {
+      break
+    }
+    if (remainder < currentRomanDecimal.decimal) {
+      currentRomanDecimal = romanNumeralsMapSorted[++currentKey]
+      continue
+    }
+    result += currentRomanDecimal.roman
+    remainder -= currentRomanDecimal.decimal
+  }
+  return result
+}
+console.log('result: ', solution(3))
 
 /*
  * In Roman numerals 1990 is rendered:
@@ -22,9 +49,9 @@ export function solution(number: number): string {
  */
 
 /* Plan:
- *# map roman numerals
- *# calculate them
- *## calculate from I to III
+ *# map roman numerals - check
+ *# transform from Decimal to Roman
+ *## transform correctly: I to III - check
  *## add 'IV' pattern
  *## refact 'IV' pattern to be used by 'X' as well
  *## refact 'IV' pattern to be used by 'C' but with 'L' as the subtractor instead of 'I' (make it an argument)
