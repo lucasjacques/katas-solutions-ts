@@ -20,3 +20,13 @@ export function solution(number: number): string {
  ** 2008 is written as 2000=MM, 8=VIII; or MMVIII
  ** 1666 uses each Roman symbol in descending order: MDCLXVI.
  */
+
+/* Plan:
+ *# map roman numerals
+ *# calculate them
+ *## calculate from I to III
+ *## add 'IV' pattern
+ *## refact 'IV' pattern to be used by 'X' as well
+ *## refact 'IV' pattern to be used by 'C' but with 'L' as the subtractor instead of 'I' (make it an argument)
+ *## refact 'IV' pattern to be used by 'X' but with 'D' as the subtractor instead of 'L' (pass D as the argument)
+ */
