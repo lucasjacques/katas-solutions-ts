@@ -2,22 +2,19 @@ export const solution = (number: number): string => {
   return fromDecimalToRoman(number)
 }
 
-let romanNumeralsMapSorted: any
+const romanNumeralsMapSorted = [
+  { roman: 'I', decimal: 1 },
+  { roman: 'V', decimal: 5 },
+  { roman: 'X', decimal: 10 },
+  { roman: 'L', decimal: 50 },
+  { roman: 'D', decimal: 500 },
+  { roman: 'C', decimal: 100 },
+  { roman: 'M', decimal: 1000 },
+].sort((a, b) => {
+  return b.decimal - a.decimal
+})
+
 const fromDecimalToRoman = (decimal: number) => {
-  const romanNumeralsMap = [
-    { roman: 'I', decimal: 1 },
-    { roman: 'V', decimal: 5 },
-    { roman: 'X', decimal: 10 },
-    { roman: 'L', decimal: 50 },
-    { roman: 'D', decimal: 500 },
-    { roman: 'C', decimal: 100 },
-    { roman: 'M', decimal: 1000 },
-  ]
-
-  romanNumeralsMapSorted = romanNumeralsMap.sort((a, b) => {
-    return b.decimal - a.decimal
-  })
-
   let result: string = ''
   const decimalAsString = decimal.toString().split('').reverse().join('')
   for (let i = 0; i < decimalAsString.length; i++) {
