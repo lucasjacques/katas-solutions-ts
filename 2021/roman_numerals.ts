@@ -1,8 +1,9 @@
-export function solution(number: number): string {
+export const solution = (number: number): string => {
   return fromDecimalToRoman(number)
 }
 
-function fromDecimalToRoman(decimal: number) {
+let romanNumeralsMapSorted: any
+const fromDecimalToRoman = (decimal: number) => {
   const romanNumeralsMap = [
     { roman: 'I', decimal: 1 },
     { roman: 'V', decimal: 5 },
@@ -13,27 +14,86 @@ function fromDecimalToRoman(decimal: number) {
     { roman: 'M', decimal: 1000 },
   ]
 
-  const romanNumeralsMapSorted = romanNumeralsMap.sort((a, b) => {
+  romanNumeralsMapSorted = romanNumeralsMap.sort((a, b) => {
     return b.decimal - a.decimal
   })
 
-  let result: string = '',
-    currentKey = 0,
-    current = { element: romanNumeralsMapSorted[currentKey] }
-  for (let remainder = decimal; remainder > 0; ) {
-    if (remainder === 0) {
-      break
-    }
-    if (remainder < current.element.decimal) {
-      current.element = romanNumeralsMapSorted[++currentKey]
-      continue
-    }
-    result += current.element.roman
-    remainder -= current.element.decimal
+  let result: string = ''
+  const decimalAsString = decimal.toString()
+  for (let i = 0; i < decimalAsString.length; i++) {
+    const element = parseInt(decimalAsString[i])
+    result = transformDecimalUnitToRoman(element, i) + result
   }
   return result
 }
+
+const transformDecimalUnitToRoman = (
+  decimalUnit: number,
+  i: number
+): string => {
+  if (i === 0) {
+    for (
+      let j = romanNumeralsMapSorted.length - 3;
+      j <= romanNumeralsMapSorted.length - 1;
+      j++
+    ) {
+      const current = romanNumeralsMapSorted[j]
+      const subtractor =
+        romanNumeralsMapSorted[romanNumeralsMapSorted.length - 1]
+      if (decimalUnit === current.decimal) {
+        return current.roman
+      }
+      if (decimalUnit === current.decimal - subtractor.decimal) {
+        return `${subtractor.roman}${current.roman}`
+      }
+      if (decimalUnit > current.decimal - subtractor.decimal) {
+        let remainder = decimalUnit - current.decimal
+        let result = current.roman
+        while (remainder > 0) {
+          result += subtractor.roman
+          remainder--
+        }
+        return result
+      }
+    }
+  }
+  if (i === 1) {
+    for (
+      let j = romanNumeralsMapSorted.length - 5;
+      j <= romanNumeralsMapSorted.length - 3;
+      j++
+    ) {
+      const current = romanNumeralsMapSorted[j]
+      const subtractor =
+        romanNumeralsMapSorted[romanNumeralsMapSorted.length - 3]
+      if (decimalUnit === current.decimal) {
+        return current.roman
+      }
+      if (decimalUnit === current.decimal - subtractor.decimal) {
+        return `${subtractor.roman}${current.roman}`
+      }
+      if (decimalUnit > current.decimal - subtractor.decimal) {
+        let remainder = decimalUnit - current.decimal
+        let result = current.roman
+        while (remainder > 0) {
+          result += subtractor.roman
+          remainder--
+        }
+        return result
+      }
+    }
+  }
+  return ''
+}
+console.log('result: ', solution(1))
+console.log('result: ', solution(2))
+console.log('result: ', solution(3))
+console.log('result: ', solution(4))
 console.log('result: ', solution(5))
+console.log('result: ', solution(6))
+console.log('result: ', solution(7))
+console.log('result: ', solution(8))
+console.log('result: ', solution(9))
 
 /* Some infos:
  * In Roman numerals 1990 is rendered:
@@ -53,3 +113,28 @@ console.log('result: ', solution(5))
  *## refactor 'IV' adaptation to be used by 'C' but with 'L' as the subtractor instead of 'I' (make it an argument)
  *## refactor 'IV' adaptation to be used by 'X' but with 'D' as the subtractor instead of 'L' (pass D as the argument)
  */
+
+//   currentKey = 0,
+//   current = {
+//     element: romanNumeralsMapSorted[currentKey],
+//     subtractor: 0,
+//   }
+// for (let remainder = decimal; remainder > 0; ) {
+//   if (remainder === 0) {
+//     break
+//   }
+//   if (remainder < current.element.decimal) {
+//     current.subtractor = romanNumeralsMapSorted[currentKey + 1].decimal
+//     if (
+//       romanNumeralsMapSorted[++currentKey].decimal +
+//         romanNumeralsMapSorted[currentKey + 1].decimal ===
+//       remainder
+//     ) {
+//       continue
+//     }
+//     current.element = romanNumeralsMapSorted[++currentKey]
+//     continue
+//   }
+//   result += current.element.roman
+//   remainder -= current.element.decimal
+// }
