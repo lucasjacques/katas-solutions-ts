@@ -57,32 +57,6 @@ const transformDecimalUnitToRoman = (
       }
     }
   }
-  if (i === 1) {
-    for (
-      let j = romanNumeralsMapSorted.length - 5;
-      j <= romanNumeralsMapSorted.length - 3;
-      j++
-    ) {
-      const current = romanNumeralsMapSorted[j]
-      const subtractor =
-        romanNumeralsMapSorted[romanNumeralsMapSorted.length - 3]
-      if (decimalUnit === current.decimal) {
-        return current.roman
-      }
-      if (decimalUnit === current.decimal - subtractor.decimal) {
-        return `${subtractor.roman}${current.roman}`
-      }
-      if (decimalUnit > current.decimal - subtractor.decimal) {
-        let remainder = decimalUnit - current.decimal
-        let result = current.roman
-        while (remainder > 0) {
-          result += subtractor.roman
-          remainder--
-        }
-        return result
-      }
-    }
-  }
   return ''
 }
 console.log('result: ', solution(1))
@@ -113,28 +87,3 @@ console.log('result: ', solution(9))
  *## refactor 'IV' adaptation to be used by 'C' but with 'L' as the subtractor instead of 'I' (make it an argument)
  *## refactor 'IV' adaptation to be used by 'X' but with 'D' as the subtractor instead of 'L' (pass D as the argument)
  */
-
-//   currentKey = 0,
-//   current = {
-//     element: romanNumeralsMapSorted[currentKey],
-//     subtractor: 0,
-//   }
-// for (let remainder = decimal; remainder > 0; ) {
-//   if (remainder === 0) {
-//     break
-//   }
-//   if (remainder < current.element.decimal) {
-//     current.subtractor = romanNumeralsMapSorted[currentKey + 1].decimal
-//     if (
-//       romanNumeralsMapSorted[++currentKey].decimal +
-//         romanNumeralsMapSorted[currentKey + 1].decimal ===
-//       remainder
-//     ) {
-//       continue
-//     }
-//     current.element = romanNumeralsMapSorted[++currentKey]
-//     continue
-//   }
-//   result += current.element.roman
-//   remainder -= current.element.decimal
-// }
