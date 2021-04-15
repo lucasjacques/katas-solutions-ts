@@ -84,26 +84,54 @@ const transformDecimalUnitToRoman = (
       }
     }
   }
+  if (i === 2) {
+    for (
+      let j = romanNumeralsMapSorted.length - 7,
+        decimalUnitParsed = decimalUnit * 10;
+      j <= romanNumeralsMapSorted.length - 5;
+      j++
+    ) {
+      const current = romanNumeralsMapSorted[j]
+      const subtractor =
+        romanNumeralsMapSorted[romanNumeralsMapSorted.length - 5]
+      if (decimalUnitParsed === current.decimal) {
+        return current.roman
+      }
+      if (decimalUnitParsed === current.decimal - subtractor.decimal) {
+        return `${subtractor.roman}${current.roman}`
+      }
+      if (decimalUnitParsed > current.decimal - subtractor.decimal) {
+        let remainder = decimalUnitParsed - current.decimal
+        let result = current.roman
+        while (remainder > 0) {
+          result += subtractor.roman
+          remainder -= subtractor.decimal
+        }
+        return result
+      }
+    }
+  }
   return ''
 }
-console.log('result for 1: ', solution(1))
-console.log('result for 2: ', solution(2))
-console.log('result for 3: ', solution(3))
-console.log('result for 4: ', solution(4))
-console.log('result for 5: ', solution(5))
-console.log('result for 6: ', solution(6))
-console.log('result for 7: ', solution(7))
-console.log('result for 8: ', solution(8))
-console.log('result for 9: ', solution(9))
-console.log('result for 10: ', solution(10))
-console.log('result for 20: ', solution(20))
-console.log('result for 30: ', solution(30))
-console.log('result for 40: ', solution(40))
-console.log('result for 50: ', solution(50))
-console.log('result for 60: ', solution(60))
-console.log('result for 70: ', solution(70))
-console.log('result for 80: ', solution(80))
-console.log('result for 99: ', solution(99))
+console.log('result for 111: ', solution(111))
+console.log('result for 112: ', solution(112))
+console.log('result for 113: ', solution(113))
+console.log('result for 114: ', solution(114))
+console.log('result for 115: ', solution(115))
+console.log('result for 116: ', solution(116))
+console.log('result for 117: ', solution(117))
+console.log('result for 118: ', solution(118))
+console.log('result for 119: ', solution(191))
+console.log('result for 110: ', solution(110))
+console.log('result for 120: ', solution(120))
+console.log('result for 130: ', solution(130))
+console.log('result for 140: ', solution(140))
+console.log('result for 150: ', solution(150))
+console.log('result for 160: ', solution(160))
+console.log('result for 170: ', solution(170))
+console.log('result for 180: ', solution(180))
+console.log('result for 199: ', solution(199))
+console.log('result for 100: ', solution(100))
 
 /* Some infos:
  * In Roman numerals 1990 is rendered:
