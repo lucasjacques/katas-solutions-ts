@@ -111,6 +111,19 @@ const transformDecimalUnitToRoman = (
       }
     }
   }
+  // Next dev plan
+  // just a one character only
+  // if(decimal = 1) { return 'M'}
+  // if(decimal = 2) { return 'MM'}
+  // if(decimal = 3) { return 'MMM'}
+  // let remainder = decimalUnit - current.decimal
+  // let result = current.roman
+  // while (remainder > 0) {
+  //   result += subtractor.roman
+  //   remainder--
+  // }
+  // return result
+
   return ''
 }
 console.log('result for 111: ', solution(111))
