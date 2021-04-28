@@ -183,4 +183,5 @@ console.log('result for 3559: ', solution(3559))
  *## refactor 'IV' adaptation to be used by 'X' but with 'D' as the subtractor instead of 'L' (pass D as the argument) - check
  *## transform correctly: 1 to 999 - check
  *## transform correctly: 1 to 3999 - check
+ *## bonus: refactor it to a core function used by each digit evaluation, instead of current "switch case madness"-ish
  */
