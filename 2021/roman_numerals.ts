@@ -86,7 +86,7 @@ const transformDecimalUnitToRoman = (
   }
   if (i === 2) {
     for (
-      let j = romanNumeralsMapSorted.length - 7,
+      let j = romanNumeralsMapSorted.length - 6,
         decimalUnitParsed = decimalUnit * 10;
       j <= romanNumeralsMapSorted.length - 5;
       j++
@@ -110,6 +110,19 @@ const transformDecimalUnitToRoman = (
         return result
       }
     }
+  }
+  if (i === 3) {
+    if (decimalUnit > 3) {
+      throw new Error("Can't calculate number. Reason: too big")
+    }
+    const romanNumeral = romanNumeralsMapSorted[0].roman
+    let decimalUnitCounter = decimalUnit
+    let result = ''
+    while (decimalUnitCounter > 0) {
+      result += romanNumeral
+      decimalUnitCounter--
+    }
+    return result
   }
   // Next dev plan
   // just a one character only
@@ -145,6 +158,10 @@ console.log('result for 170: ', solution(170))
 console.log('result for 180: ', solution(180))
 console.log('result for 199: ', solution(199))
 console.log('result for 100: ', solution(100))
+console.log('result for 1000: ', solution(1000))
+console.log('result for 2000: ', solution(2000))
+console.log('result for 3000: ', solution(3000))
+console.log('result for 3559: ', solution(3559))
 
 /* Some infos:
  * In Roman numerals 1990 is rendered:
@@ -163,7 +180,7 @@ console.log('result for 100: ', solution(100))
  *## refactor 'IV' adaptation to be used by 'X' as well - check
  *## refactor 'IV' adaptation to be used by 'C' but with 'L' as the subtractor instead of 'I' (make it an argument) - check
  *## transform correctly: 1 to 99 - check
- *## refactor 'IV' adaptation to be used by 'X' but with 'D' as the subtractor instead of 'L' (pass D as the argument)
- *## transform correctly: 1 to 999
- *## transform correctly: 1 to 3999
+ *## refactor 'IV' adaptation to be used by 'X' but with 'D' as the subtractor instead of 'L' (pass D as the argument) - check
+ *## transform correctly: 1 to 999 - check
+ *## transform correctly: 1 to 3999 - check
  */
