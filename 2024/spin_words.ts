@@ -1,8 +1,13 @@
 //kata url: https://www.codewars.com/kata/5264d2b162488dc400000001/train/typescript
 
 export function spinWords(words: string): string {
-    const result = ''
-    return result
+    const result = '';
+    const wordsArray = words.split(' ');
+    console.log('wordsArray: ', wordsArray);
+    for (const word of wordsArray) {
+        console.log('a word: ', word);
+    }
+    return result;
 }
 
 const tests = [
@@ -28,7 +33,7 @@ function executeTests(testFn: (param: string) => string, tests: {value: string, 
     const testsResult = tests.map((test) => {
         const testResultValue = testFn(test.value);
         const testResult = test.expected === testResultValue;
-        const testMessage = testResult ? `TEST PASSED: Expected ${test.expected} and got ${testResultValue}` : `TEST FAILED: Expected ${test.expected} and got ${testResultValue}`;
+        const testMessage = testResult ? `TEST PASSED: Expected "${test.expected}" and got "${testResultValue}"` : `TEST FAILED: Expected "${test.expected}" and got "${testResultValue}"`;
         
         console.log(testMessage);
         
