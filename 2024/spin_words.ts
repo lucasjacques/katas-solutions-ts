@@ -6,6 +6,10 @@ export function spinWords(words: string): string {
     console.log('wordsArray: ', wordsArray);
     for (const word of wordsArray) {
         console.log('a word: ', word);
+        for (const letter of word){
+            console.log('a letter: ', letter)
+        }
+
     }
     return result;
 }
