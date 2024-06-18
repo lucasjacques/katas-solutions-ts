@@ -1,17 +1,20 @@
 //kata url: https://www.codewars.com/kata/5264d2b162488dc400000001/train/typescript
 
 export function spinWords(words: string): string {
-    const result = '';
     const wordsArray = words.split(' ');
-    console.log('wordsArray: ', wordsArray);
+    let result = '';
     for (const word of wordsArray) {
-        console.log('a word: ', word);
-        for (const letter of word){
-            console.log('a letter: ', letter)
+        if (word.length < 5){
+            result = `${result} ${word}`;
+            continue;
         }
-
+        let drow = '';
+        for (const letter of word){
+            drow = letter + drow;
+        }
+        result = `${result} ${drow}`;
     }
-    return result;
+    return result.trim();
 }
 
 const tests = [
