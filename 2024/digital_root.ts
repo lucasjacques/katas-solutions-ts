@@ -27,8 +27,16 @@ const tests2 = [
         expected: 7
     },
     { 
-        value: 100,
-        expected: 1
+        value: 942,
+        expected: 6
+    },
+    { 
+        value: 132189,
+        expected: 6
+    },
+    { 
+        value: 493193,
+        expected: 2
     },
 ];
 
