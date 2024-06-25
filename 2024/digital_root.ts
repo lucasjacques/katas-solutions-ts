@@ -1,27 +1,19 @@
-//kata url: TEMPLATE
+//kata url: https://www.codewars.com/kata/541c8630095125aba6000c00/train/typescript
 
 export const digitalRoot = (n:number): number => {
     let nStringified = '' + n;
     let result = 0;
-    for (let i = 0; i < nStringified.length; i++) {
-        result += parseInt(nStringified[i]);
+    while (nStringified.length > 1){
+        result = 0;
+        for (let i = 0; i < nStringified.length; i++) {
+            result += parseInt(nStringified[i]);
+        }
+        nStringified = '' + result;
     }
-    console.log(`result:${result}`);
     return result;
   };
 
-const invertCharacters = (s: string): string => {
-    const splitted = s.split('');
-    let  result = ''
-    for (let index = splitted.length-1; index >= 0; index--) {
-        result += splitted[index];
-        console.log(`i:${index}, element: ${splitted[index]}`);
-    }
-    console.log(`result:${result}`);
-    return '';
-}
-
-const tests2 = [
+const tests = [
     { 
         value: 16,
         expected: 7
@@ -58,4 +50,4 @@ function executeTests(testFn: (param: number) => number, tests: {value: number, 
     return testsResult;
 }
 
-executeTests(digitalRoot, tests2);
+executeTests(digitalRoot, tests);
