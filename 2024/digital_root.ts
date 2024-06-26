@@ -1,16 +1,29 @@
 //kata url: https://www.codewars.com/kata/541c8630095125aba6000c00/train/typescript
 
 export const digitalRoot = (n:number): number => {
-    let nStringified = '' + n;
+    let nStringified = n.toString();
     let result = 0;
     while (nStringified.length > 1){
         result = 0;
         for (let i = 0; i < nStringified.length; i++) {
             result += parseInt(nStringified[i]);
         }
-        nStringified = '' + result;
+        nStringified = result.toString();
     }
     return result;
+  };
+
+
+export const digitalRootRecursive = (n:number): number => {
+    let nStringified = n.toString();
+    if (nStringified.length > 1){
+        let result = 0;
+        for (let i = 0; i < nStringified.length; i++) {
+            result += parseInt(nStringified[i]);
+        }
+        return digitalRootRecursive(result);
+    }
+    return n;
   };
 
 const tests = [
@@ -51,3 +64,4 @@ function executeTests(testFn: (param: number) => number, tests: {value: number, 
 }
 
 executeTests(digitalRoot, tests);
+executeTests(digitalRootRecursive, tests);
