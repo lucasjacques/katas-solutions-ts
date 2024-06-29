@@ -1,12 +1,19 @@
 //kata url: https://www.codewars.com/kata/5550d638a99ddb113e0000a2/train/typescript
 export const josephus = <T>(items: T[], k: number): T[] => {
-    let result = items;
-    // while (items.length > 1){
-    //     for (let index = k-1; index < result.length; index+=index+k) {
-    //         const element = result[index];
-    //         console.log(`element: ${element}`)
-    //     }
-    // }
+    let result: T[] = [];
+    let remaining = items;
+    let countItems = items.length;
+    while (remaining.length > 0) {
+        for (let index = k-1; index < countItems; index=index+k) {
+            console.log(`Current item being removed: ${remaining[index]}, ${index}`);
+            console.log(`Current state of remaining array: ${remaining}`);
+            console.log(`Current slice being done: ${remaining.slice(index)}`);
+            console.log(`Current concat being done: ${result.concat([remaining[index]])}`);
+            console.log(`------------------------------`);
+            result = result.concat([remaining[index]]);
+            remaining = remaining.slice(index);
+        }
+    }
     compareArrays(items, result);
     return result;
 };
