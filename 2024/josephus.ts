@@ -1,13 +1,14 @@
 //kata url: https://www.codewars.com/kata/5550d638a99ddb113e0000a2/train/typescript
 export const josephus = <T>(items: T[], k: number): T[] => {
     let result = items;
-    while (items.length > 1){
-        for (let index = k-1; index < result.length; index+=index+k) {
-            const element = result[index];
-            console.log(`element: ${element}`)
-        }
-    }
-    return [];
+    // while (items.length > 1){
+    //     for (let index = k-1; index < result.length; index+=index+k) {
+    //         const element = result[index];
+    //         console.log(`element: ${element}`)
+    //     }
+    // }
+    compareArrays(items, result);
+    return result;
 };
 
 type JosephusTest<T> = {
@@ -15,17 +16,31 @@ type JosephusTest<T> = {
     expected: T[]
 }
 
-const tests: JosephusTest<number>[] = [
+const tests: JosephusTest<Object>[] = [
   { 
       values: [[1,2,3,4,5,6,7,8,9,10],1],
       expected: [1,2,3,4,5,6,7,8,9,10]
   },
 ];
 
-function executeTests(testFn: <T>(param1: T[], param2: number ) => T[], tests: number): boolean {
+const compareArrays = <T>(array1: T[], array2: T[]): boolean => {
+    if (array1.length != array2.length){
+        return false;
+    }
+
+    for (let index = 0; index < array1.length; index++) {
+        if (array1[index] != array2[index]){
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function executeTests(testFn: <T>(param1: T[], param2: number ) => T[], tests: JosephusTest<Object>[]): boolean {
   const testsResult = tests.map((test) => {
-      const testResultValue = testFn(test.value);
-      const testResult = test.expected === testResultValue;
+      const testResultValue = testFn(test.values[0], test.values[1]);
+      const testResult = compareArrays(test.expected, testResultValue);
       const testMessage = testResult ? `TEST PASSED: Expected "${test.expected}" and got "${testResultValue}"` : `TEST FAILED: Expected "${test.expected}" and got "${testResultValue}"`;
       
       console.log(testMessage);
