@@ -3,16 +3,20 @@ export const josephus = <T>(items: T[], k: number): T[] => {
     let result: T[] = [];
     let remaining = items;
     let countItems = items.length;
-    while (remaining.length > 0) {
+    let remaining2 = items;
+    while (remaining.length > 1) {
+        
         for (let index = k-1; index < countItems; index=index+k) {
-            console.log(`Current item being removed: ${remaining[index]}, ${index}`);
+            console.log(`Current item being removed: ${remaining[index]}, ${index+1}`);
             console.log(`Current state of remaining array: ${remaining}`);
+            console.log(`Current state of remaining2 array: ${remaining2}`);
             console.log(`Current slice being done: ${remaining.slice(index)}`);
             console.log(`Current concat being done: ${result.concat([remaining[index]])}`);
             console.log(`------------------------------`);
             result = result.concat([remaining[index]]);
-            remaining = remaining.slice(index);
+            remaining2 = remaining.slice(index);
         }
+        remaining = remaining2;
     }
     compareArrays(items, result);
     return result;
@@ -28,6 +32,10 @@ const tests: JosephusTest<Object>[] = [
       values: [[1,2,3,4,5,6,7,8,9,10],1],
       expected: [1,2,3,4,5,6,7,8,9,10]
   },
+  { 
+        values: [[1,2,3,4,5,6,7,8,9,10],2],
+        expected: [2,4,6,8,10,3,7,1,9,5]
+    },
 ];
 
 const compareArrays = <T>(array1: T[], array2: T[]): boolean => {
