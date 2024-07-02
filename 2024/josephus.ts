@@ -10,11 +10,10 @@ export const josephus = <T>(items: T[], k: number): T[] => {
             console.log(`Current item being removed: ${remaining[index]}, ${index+1}`);
             console.log(`Current state of remaining array: ${remaining}`);
             console.log(`Current state of remaining2 array: ${remaining2}`);
-            console.log(`Current slice being done: ${remaining.slice(index)}`);
             console.log(`Current concat being done: ${result.concat([remaining[index]])}`);
             console.log(`------------------------------`);
             result = result.concat([remaining[index]]);
-            remaining2 = remaining.slice(index);
+            remaining2 = remaining.splice(index);
         }
         remaining = remaining2;
     }
