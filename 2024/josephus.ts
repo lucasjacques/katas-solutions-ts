@@ -4,39 +4,28 @@ export const josephus = <T>(items: T[], k: number): T[] => {
     let remaining = items;
     let kCounter = 0;
     let debugCounter = 0;
-    for (let index = 0; index <= remaining.length; index++,kCounter++,debugCounter++) {
+    for (let index = 0; index <= remaining.length; index++) {
         const element = remaining[index];
         console.log(`remaining[${index}] = element: ${element}`)
+        if (remaining.length === 0) {
+            break;
+        }
+
         if (kCounter+1 === k) {
             console.log(`should remove the item above`);
+            result.push(element);
             remaining.splice(0,1);
             console.log('remaining',remaining);
             kCounter--;
             index--;
+            debugCounter++;
         }
-        if(debugCounter > 10){
-            break;
-        }
+        
+        kCounter++;
     }
     compareArrays(items, result);
     return result;
 };
-
-type JosephusTest<T> = {
-    values: [T[], number],
-    expected: T[]
-}
-
-const tests: JosephusTest<Object>[] = [
-  { 
-      values: [[1,2,3,4,5,6,7,8,9,10],1],
-      expected: [1,2,3,4,5,6,7,8,9,10]
-  },
-//   { 
-//         values: [[1,2,3,4,5,6,7,8,9,10],2],
-//         expected: [2,4,6,8,10,3,7,1,9,5]
-//     },
-];
 
 const compareArrays = <T>(array1: T[], array2: T[]): boolean => {
     if (array1.length != array2.length){
@@ -51,6 +40,24 @@ const compareArrays = <T>(array1: T[], array2: T[]): boolean => {
 
     return true;
 }
+
+type JosephusTest<T> = {
+    values: [T[], number],
+    expected: T[]
+}
+
+
+
+const tests: JosephusTest<Object>[] = [
+  { 
+      values: [[1,2,3,4,5,6,7,8,9,10],1],
+      expected: [1,2,3,4,5,6,7,8,9,10]
+  },
+//   { 
+//         values: [[1,2,3,4,5,6,7,8,9,10],2],
+//         expected: [2,4,6,8,10,3,7,1,9,5]
+//     },
+];
 
 function executeTests(testFn: <T>(param1: T[], param2: number ) => T[], tests: JosephusTest<Object>[]): boolean {
   const testsResult = tests.map((test) => {
