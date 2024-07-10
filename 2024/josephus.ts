@@ -8,18 +8,23 @@ export const josephus = <T>(items: T[], k: number): T[] => {
         kCounter++;
         const element = remaining[index];
         console.log(`remaining[${index}] = element: ${element}`)
-        
+
         if (remaining.length === 0) {
             break;
+        }
+
+        if (index + 1 > remaining.length) {
+            console.log(`should get here with 10, 9, 7, idk more`);
+            index = 0;
         }
 
         if (k > remaining.length) {
             console.log(`should remove the element above`);
             result.push(element);
-            remaining.splice(index,1);
-            console.log('remaining',remaining);
+            remaining.splice(index, 1);
+            console.log('remaining', remaining);
             kCounter -= k;
-            index --;
+            index--;
             debugCounter++;
             break;
         }
@@ -27,31 +32,25 @@ export const josephus = <T>(items: T[], k: number): T[] => {
         if (kCounter === k) {
             console.log(`should remove the element above`);
             result.push(element);
-            remaining.splice(index,1);
-            console.log('remaining',remaining);
+            remaining.splice(index, 1);
+            console.log('remaining', remaining);
             kCounter -= k;
-            index --;
+            index--;
             debugCounter++;
         }
 
-        if (remaining.length > 0 && index+1 > remaining.length) {
-            index = 0;
-        }
-
-
-        
     }
     compareArrays(items, result);
     return result;
 };
 
 const compareArrays = <T>(array1: T[], array2: T[]): boolean => {
-    if (array1.length != array2.length){
+    if (array1.length != array2.length) {
         return false;
     }
 
     for (let index = 0; index < array1.length; index++) {
-        if (array1[index] != array2[index]){
+        if (array1[index] != array2[index]) {
             return false;
         }
     }
@@ -67,32 +66,32 @@ type JosephusTest<T> = {
 
 
 const tests: JosephusTest<Object>[] = [
-  { 
-      values: [[1,2,3,4,5,6,7,8,9,10],1],
-      expected: [1,2,3,4,5,6,7,8,9,10]
-  },
-  { 
-        values: [[1,2,3,4,5,6,7,8,9,10],2],
-        expected: [2,4,6,8,10,3,7,1,9,5]
+    {
+        values: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1],
+        expected: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    },
+    {
+        values: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 2],
+        expected: [2, 4, 6, 8, 10, 3, 7, 1, 9, 5]
     },
 ];
 
-function executeTests(testFn: <T>(param1: T[], param2: number ) => T[], tests: JosephusTest<Object>[]): boolean {
-  const testsResult = tests.map((test) => {
-      const testResultValue = testFn(test.values[0], test.values[1]);
-      const testResult = compareArrays(test.expected, testResultValue);
-      const testMessage = testResult ? `TEST PASSED: Expected "${test.expected}" and got "${testResultValue}"` : `TEST FAILED: Expected "${test.expected}" and got "${testResultValue}"`;
-      
-      console.log(testMessage);
-      
-      return testResult;
-  }).reduce((previousTestResult, currentTestResult) => previousTestResult && currentTestResult)
-  
-  const testsMessage = testsResult ? `ALL TESTS PASSED @${testFn.name}! CONGRATULATIONS!\n\n` : `ONE OR MORE TESTS FAILED @${testFn.name}, PLEASE TRY AGAIN!\n\n`;
-  
-  console.log(testsMessage);
-  
-  return testsResult;
+function executeTests(testFn: <T>(param1: T[], param2: number) => T[], tests: JosephusTest<Object>[]): boolean {
+    const testsResult = tests.map((test) => {
+        const testResultValue = testFn(test.values[0], test.values[1]);
+        const testResult = compareArrays(test.expected, testResultValue);
+        const testMessage = testResult ? `TEST PASSED: Expected "${test.expected}" and got "${testResultValue}"` : `TEST FAILED: Expected "${test.expected}" and got "${testResultValue}"`;
+
+        console.log(testMessage);
+
+        return testResult;
+    }).reduce((previousTestResult, currentTestResult) => previousTestResult && currentTestResult)
+
+    const testsMessage = testsResult ? `ALL TESTS PASSED @${testFn.name}! CONGRATULATIONS!\n\n` : `ONE OR MORE TESTS FAILED @${testFn.name}, PLEASE TRY AGAIN!\n\n`;
+
+    console.log(testsMessage);
+
+    return testsResult;
 }
 
 executeTests(josephus, tests);
