@@ -2,10 +2,9 @@
 export const josephus = <T>(items: T[], k: number): T[] => {
     let result: T[] = [];
     let remaining = items;
-    let kCounter = 0;
+    let kCounter = 1;
     let debugCounter = 0;
     for (let index = 0; index <= remaining.length; index++) {
-        kCounter++;
         const element = remaining[index];
         console.log(`remaining[${index}] = element: ${element}`)
 
@@ -18,27 +17,17 @@ export const josephus = <T>(items: T[], k: number): T[] => {
             index = 0;
         }
 
-        if (k > remaining.length) {
-            console.log(`should remove the element above`);
-            result.push(element);
-            remaining.splice(index, 1);
-            console.log('remaining', remaining);
-            kCounter -= k;
-            index--;
-            debugCounter++;
-            break;
-        }
-
         if (kCounter === k) {
             console.log(`should remove the element above`);
             result.push(element);
             remaining.splice(index, 1);
             console.log('remaining', remaining);
-            kCounter -= k;
+            kCounter = 0;
             index--;
             debugCounter++;
         }
 
+        kCounter++;
     }
     compareArrays(items, result);
     return result;
