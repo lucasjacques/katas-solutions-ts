@@ -3,31 +3,13 @@ export const josephus = <T>(items: T[], k: number): T[] => {
     let result: T[] = [];
     let remaining = items;
     let kCounter = 1;
+    let kCarrier = 0;
     let debugCounter = 0;
-    for (let index = 0; index <= remaining.length; index++) {
-        const element = remaining[index];
-        console.log(`remaining[${index}] = element: ${element}`)
-
-        if (remaining.length === 0) {
-            break;
-        }
-
-        if (index + 1 > remaining.length) {
-            console.log(`should get here with 10, 9, 7, idk more`);
-            index = 0;
-        }
-
-        if (kCounter === k) {
-            console.log(`should remove the element above`);
-            result.push(element);
-            remaining.splice(index, 1);
-            console.log('remaining', remaining);
-            kCounter = 0;
-            index--;
-            debugCounter++;
-        }
-
-        kCounter++;
+    
+    for (let index = 0 + kCarrier; index < remaining.length; index++) {
+        const element = remaining[index]
+        console.log(`element[${index}]: ${element}`);
+        remaining.pop();
     }
     compareArrays(items, result);
     return result;
@@ -45,6 +27,10 @@ const compareArrays = <T>(array1: T[], array2: T[]): boolean => {
     }
 
     return true;
+}
+
+const consumeArray = <T>(array1: T[]): T[] => {
+    return [];
 }
 
 type JosephusTest<T> = {
