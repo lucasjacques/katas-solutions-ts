@@ -1,15 +1,19 @@
 //kata url: https://www.codewars.com/kata/5550d638a99ddb113e0000a2/train/typescript
 export const josephus = <T>(items: T[], k: number): T[] => {
     let result: T[] = [];
-    let remaining = items;
+    let remaining = items.concat([]);
     
-    for (let index = 0; index < remaining.length; index++) {
-        const element = remaining[index];
-        console.log(`element[${index}]: ${element}`);
-        let removedElement = remaining.splice(index,1);
+    for (let index = 0; index < items.length; index++) {
+        let removedElement = items[index];
         console.log(`removedElement: ${removedElement}`);
         result = result.concat(removedElement);
         console.log(`result: ${result}`);
+        // if the element being observed is the one to be removed, remove it
+        // if the element being observed is not the one to be removed, increment the "counterToRemove" value
+        // if the index being observed is the last one of the remaining array, start it over from the first value of the remaining array
+        // if the remaining items is empty, end the for loop
+        remaining.filter(()=>{})
+        console.log(`remaining: ${remaining}`);
     }
     
     return result;
@@ -45,10 +49,10 @@ const tests: JosephusTest<Object>[] = [
         values: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1],
         expected: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     },
-    // {
-    //     values: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 2],
-    //     expected: [2, 4, 6, 8, 10, 3, 7, 1, 9, 5]
-    // },
+    {
+        values: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 2],
+        expected: [2, 4, 6, 8, 10, 3, 7, 1, 9, 5]
+    },
 ];
 
 function executeTests(testFn: <T>(param1: T[], param2: number) => T[], tests: JosephusTest<Object>[]): boolean {
