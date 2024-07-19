@@ -2,18 +2,28 @@
 export const josephus = <T>(items: T[], k: number): T[] => {
     let result: T[] = [];
     let remaining = items.concat([]);
+    let kCounter = 1;
     
-    for (let index = 0; index < items.length; index++) {
-        let removedElement = items[index];
-        console.log(`removedElement: ${removedElement}`);
-        result = result.concat(removedElement);
-        console.log(`result: ${result}`);
+    for (let index = 0; index < remaining.length; index++) {
+        let currentElement = remaining[index];
         // if the element being observed is the one to be removed, remove it
-        // if the element being observed is not the one to be removed, increment the "counterToRemove" value
+        if (k === kCounter) {
+            let indexToRemove = remaining.findIndex((element)=> element === currentElement);
+            remaining.splice(indexToRemove, 1);
+            result = result.concat(currentElement);
+            kCounter = 0;
+            index--;
+        }
         // if the index being observed is the last one of the remaining array, start it over from the first value of the remaining array
-        // if the remaining items is empty, end the for loop
-        remaining.filter(()=>{})
-        console.log(`remaining: ${remaining}`);
+        if (index+1 === remaining.length){
+            // if the remaining items is empty, end the for loop
+            if (remaining.length === 0) {
+                break;
+            }
+            // due to for incrementation, it's required to make index negative
+            index = -1;
+        }
+        kCounter++;
     }
     
     return result;
@@ -33,10 +43,6 @@ const compareArrays = <T>(array1: T[], array2: T[]): boolean => {
     return true;
 }
 
-const consumeArray = <T>(array1: T[]): T[] => {
-    return [];
-}
-
 type JosephusTest<T> = {
     values: [T[], number],
     expected: T[]
@@ -53,6 +59,10 @@ const tests: JosephusTest<Object>[] = [
         values: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 2],
         expected: [2, 4, 6, 8, 10, 3, 7, 1, 9, 5]
     },
+    { 
+        values: [["C","o","d","e","W","a","r","s"], 4],
+        expected: ['e', 's', 'W', 'o', 'C', 'd', 'r', 'a']
+    }
 ];
 
 function executeTests(testFn: <T>(param1: T[], param2: number) => T[], tests: JosephusTest<Object>[]): boolean {
