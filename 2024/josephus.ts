@@ -20,7 +20,7 @@ export const josephus = <T>(items: T[], k: number): T[] => {
             if (remaining.length === 0) {
                 break;
             }
-            // due to for incrementation, it's required to make index negative
+            // due to for-loop incrementation, it's required to make index negative
             index = -1;
         }
         kCounter++;
