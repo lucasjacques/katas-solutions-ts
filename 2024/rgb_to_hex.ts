@@ -1,7 +1,16 @@
 //kata url: https://www.codewars.com/kata/513e08acc600c94f01000001/train/typescript
 export function rgbToHex(r: number, g: number, b: number): string {
-    let result = '';
-    return result;
+    const rgb = [r,g,b]
+    const removedNegatives = rgb.filter((dec: number): boolean => dec < 0);
+    const decimalToHex = (dec: number): string => dec.toString(16);
+    const hexToDoubleDigits = (hex: string): string => hex.length === 1 ? `0${hex}` : hex;
+    const rHexed: string = decimalToHex(r);
+    const gHexed: string = decimalToHex(g);
+    const bHexed: string = decimalToHex(b);
+    const rResult: string = hexToDoubleDigits(rHexed);
+    const gResult: string = hexToDoubleDigits(gHexed);
+    const bResult: string = hexToDoubleDigits(bHexed);
+    return `${rResult}${gResult}${bResult}`;
 }
 
 type rgbToHexTest = {
@@ -10,18 +19,14 @@ type rgbToHexTest = {
 }
 
 const tests2: rgbToHexTest[] = [
-    {
-        values: [0,0,0],
-        expected: ''
-    }
-    // { 
-    //     values: [0, 0, 0],
-    //     expected: "000000"
-    // },
-    // { 
-    //     values: [0, 0, -20],
-    //     expected: "000000"
-    // },
+    { 
+        values: [0, 0, 0],
+        expected: "000000"
+    },
+    { 
+        values: [0, 0, -20],
+        expected: "000000"
+    },
     // { 
     //     values: [300, 255, 255],
     //     expected: "FFFFFF"
