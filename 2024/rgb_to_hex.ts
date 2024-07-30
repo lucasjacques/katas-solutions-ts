@@ -1,12 +1,20 @@
 //kata url: https://www.codewars.com/kata/513e08acc600c94f01000001/train/typescript
 export function rgbToHex(r: number, g: number, b: number): string {
     const rgb = [r,g,b]
-    const removedNegatives = rgb.filter((dec: number): boolean => dec < 0);
-    const decimalToHex = (dec: number): string => dec.toString(16);
+    const [rTreated, gTreated, bTreated] = rgb.map((dec: number): number => { 
+        if (dec < 0){
+            return 0
+        }
+        if (dec > 255) {
+            return 255
+        }
+        return dec
+    });
+    const decimalToHex = (dec: number): string => dec.toString(16).toUpperCase();
     const hexToDoubleDigits = (hex: string): string => hex.length === 1 ? `0${hex}` : hex;
-    const rHexed: string = decimalToHex(r);
-    const gHexed: string = decimalToHex(g);
-    const bHexed: string = decimalToHex(b);
+    const rHexed: string = decimalToHex(rTreated);
+    const gHexed: string = decimalToHex(gTreated);
+    const bHexed: string = decimalToHex(bTreated);
     const rResult: string = hexToDoubleDigits(rHexed);
     const gResult: string = hexToDoubleDigits(gHexed);
     const bResult: string = hexToDoubleDigits(bHexed);
@@ -27,14 +35,18 @@ const tests2: rgbToHexTest[] = [
         values: [0, 0, -20],
         expected: "000000"
     },
-    // { 
-    //     values: [300, 255, 255],
-    //     expected: "FFFFFF"
-    // },
-    // { 
-    //     values: [173, 255, 47],
-    //     expected: "ADFF2F"
-    // },
+    { 
+        values: [300, 255, 255],
+        expected: "FFFFFF"
+    },
+    { 
+        values: [173, 255, 47],
+        expected: "ADFF2F"
+    },
+    { 
+        values: [148, 0, 211],
+        expected: "9400D3"
+    },
 ];
 
 function executeTests2(testFn: (param1: number,param2: number,param3: number) => string, tests: rgbToHexTest[]): boolean {
