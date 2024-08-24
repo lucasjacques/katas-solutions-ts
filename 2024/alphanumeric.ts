@@ -4,12 +4,22 @@
 //kata url: https://www.codewars.com/kata/526dbd6c8c0eb53254000110/train/typescript
 
 export function alphanumeric(string: string): boolean {
-    const regex = /(?!_)\w+/;
-    return string.match(regex) != null
-}
-
-export function templateString(template: string): boolean {
-    return true;
+    /* 
+     * regex explained:
+     * / - regex start
+     ** ^ - detect start (to detect the start of the word to be filtered)
+     ** ( - group start
+     *** [ - match group
+     **** A-Za-z\d - all the characters to be permited: A to Z, a to z, digits
+     *** ] - match group
+     ** ) - group end
+     ** + - one or more
+     ** $ - detect end (to detect the end of the word to be filtered)
+     * / - regex end
+     */
+    
+    const regex = /^([A-Za-z\d])+$/;
+    return string.match(regex) !== null
 }
 
 const tests = [
@@ -18,15 +28,15 @@ const tests = [
         expected: true
     },
     { 
-        value: '"hello world_',
+        value: 'hello world_',
         expected: false
     },
     { 
-        value: '"PassW0rd',
+        value: 'PassW0rd',
         expected: true
     },
     { 
-        value: '"     ',
+        value: '     ',
         expected: false
     },
 ];
