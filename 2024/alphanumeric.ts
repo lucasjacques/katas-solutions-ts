@@ -4,9 +4,9 @@
 //kata url: https://www.codewars.com/kata/526dbd6c8c0eb53254000110/train/typescript
 
 export function alphanumeric(string: string): boolean {
-    //your code here
-    return false;
-  }
+    const regex = /(?!_)\w+/;
+    return string.match(regex) != null
+}
 
 export function templateString(template: string): boolean {
     return true;
@@ -49,4 +49,4 @@ function executeTests(testFn: (param: string) => boolean, tests: {value: string,
     return testsResult;
 }
 
-executeTests(templateString, tests);
+executeTests(alphanumeric, tests);
