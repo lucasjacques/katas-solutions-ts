@@ -1,16 +1,36 @@
 //kata url: https://www.codewars.com/kata/52223df9e8f98c7aa7000062/train/typescript
 
+const LOWERCASE_LETTERS: string[] = [
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 
+    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+  ];
+  
+const UPPERCASE_LETTERS: string[] = [
+'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
+'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+];
+
 export function rot13(str: string): string {
+    
     const strSplitted = str.split('');
     let strCharCodes: number[] = [];
     strSplitted.map((value, index) => {
-        let charCodeAt = str.charCodeAt(index) + 13;
-        strCharCodes.push(charCodeAt);
+        const isCharLower = LOWERCASE_LETTERS.find((element) => element === value);
+        const isCharUpper = UPPERCASE_LETTERS.find((element) => element === value);
+        let charFind = '';
+        if (isCharLower){
+            // do isCharLower statements
+        }
+
+        if (isCharUpper){
+            // do isCharUpper statements
+        }
+        strCharCodes.push();
         return;
     });
 
-    const result = String.fromCharCode(...strCharCodes);
-    return result;
+    // eventually use String.fromCharCode and string.charCodeAt();
+    return 'ROT13 example.';
   }
 
 const tests = [
