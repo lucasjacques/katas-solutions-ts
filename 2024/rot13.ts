@@ -1,7 +1,16 @@
 //kata url: https://www.codewars.com/kata/52223df9e8f98c7aa7000062/train/typescript
 
 export function rot13(str: string): string {
-    return 'ROT13 example.';
+    const strSplitted = str.split('');
+    let strCharCodes: number[] = [];
+    strSplitted.map((value, index) => {
+        let charCodeAt = str.charCodeAt(index) + 13;
+        strCharCodes.push(charCodeAt);
+        return;
+    });
+
+    const result = String.fromCharCode(...strCharCodes);
+    return result;
   }
 
 const tests = [
