@@ -12,24 +12,10 @@ const UPPERCASE_LETTERS: string[] = [
 
 export function rot13(str: string): string {
     
-    const strSplitted = str.split('');
-    let strCharCodes: number[] = [];
-    strSplitted.map((value, index) => {
-        const isCharLower = LOWERCASE_LETTERS.find((element) => element === value);
-        const isCharUpper = UPPERCASE_LETTERS.find((element) => element === value);
-        let charFind = '';
-        if (isCharLower){
-            // do isCharLower statements
-        }
-
-        if (isCharUpper){
-            // do isCharUpper statements
-        }
-        strCharCodes.push();
-        return;
+    const strSplitted = str.replace(/[a-zA-Z]/g, (character) => {
+        const charCode = character.charCodeAt(0);
+        return 'wip';
     });
-
-    // eventually use String.fromCharCode and string.charCodeAt();
     return 'ROT13 example.';
   }
 
