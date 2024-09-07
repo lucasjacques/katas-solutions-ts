@@ -17,8 +17,8 @@ export const movingShift = (s:string, shift:number): string []=> {
         shift2++;
         return char;
     }
+    
     return [s.split('').map(char => shiftChar(char, shiftCounter)).join('')];
-
 }
 
 // will work in this function later
