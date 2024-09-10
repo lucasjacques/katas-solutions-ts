@@ -1,6 +1,5 @@
 //kata url: https://www.codewars.com/kata/5508249a98b3234f420000fb/train/typescript
 export const movingShift = (s:string, shift:number): string []=> {
-    let shiftCounter = shift;
     const shiftChar = (char: string, shift2: number): string => {
         const charCode = char.charCodeAt(0);
         // Check if it's an uppercase letter
@@ -17,8 +16,13 @@ export const movingShift = (s:string, shift:number): string []=> {
         shift2++;
         return char;
     }
-    
-    return [s.split('').map(char => shiftChar(char, shiftCounter)).join('')];
+
+    let currentShift = shift;
+    return [s.split('').map( (char) => {
+        const shiftedChar = shiftChar(char, currentShift);
+        currentShift++; // Increment the shift only for letters
+        return shiftedChar;
+    }).join('')];   
 }
 
 // will work in this function later
