@@ -1,12 +1,14 @@
 //kata url: https://www.codewars.com/kata/5508249a98b3234f420000fb/train/typescript
 export const movingShift = (s:string, shift:number): string []=> {
+    // Helper function to shift a single character with a dynamic shift value
     const shiftChar = (char: string, shift2: number): string => {
         const charCode = char.charCodeAt(0);
+
         // Check if it's an uppercase letter
         if (charCode >= 65 && charCode <= 90) {
             return String.fromCharCode(((charCode - 65 + shift2++) % 26) + 65);
         }
-        
+
         // Check if it's a lowercase letter
         if (charCode >= 97 && charCode <= 122) {
             return String.fromCharCode(((charCode - 97 + shift2++) % 26) + 97);
@@ -15,14 +17,36 @@ export const movingShift = (s:string, shift:number): string []=> {
         // If it's not a letter, don't change it
         shift2++;
         return char;
+    };
+
+    // Apply the cipher with an incremental shift to the whole string
+    let currentShift = shift;
+    const cipheredText = s.split('').map(char => {
+        const shiftedChar = shiftChar(char, currentShift);
+        currentShift++;
+        return shiftedChar;
+    }).join('');
+
+    const messageLength = cipheredText.length;
+
+    // Calculate base length and remaining
+    const baseLength = Math.ceil(messageLength / 5);
+    const remaining = messageLength - baseLength * 4;
+
+    // Create an array to hold the lengths of each part
+    const partsLengths = new Array(4).fill(baseLength)
+    // Add last array with remaining chars
+    partsLengths.push(new Array(1).fill(remaining))
+
+    // Split the ciphered message based on the calculated lengths using substring
+    const result: string[]= [];
+    let index = 0;
+    for (let length of partsLengths) {
+        result.push(cipheredText.substring(index, index + length));
+        index += length;
     }
 
-    let currentShift = shift;
-    return [s.split('').map( (char) => {
-        const shiftedChar = shiftChar(char, currentShift);
-        currentShift++; // Increment the shift only for letters
-        return shiftedChar;
-    }).join('')];   
+    return result;
 }
 
 // will work in this function later
@@ -68,7 +92,6 @@ function executeTests(testFn: (param: string, param2: number) => string[], tests
     }).reduce((previousTestResult, currentTestResult) => previousTestResult && currentTestResult)
     
     const testsMessage = testsResult ? `ALL TESTS PASSED @${testFn.name}! CONGRATULATIONS!\n\n` : `ONE OR MORE TESTS FAILED @${testFn.name}, PLEASE TRY AGAIN!\n\n`;
-    
     console.log(testsMessage);
     
     return testsResult;
